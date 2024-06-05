@@ -41,13 +41,13 @@ for (let i = 0; i < enemycount; i++) {
 function strt() {
  
   c.fillStyle = "red";
-  c.drawText("BLOXD", vp.w / 2, vp.h / 2);
+  c.fillText("BLOXD", vp.w / 2, vp.h / 2);
 
 
 }
 function play() {
   c.fillStyle = "red";
-  c.drawText("Score: " + score, 10, 10);
+  c.fillText("Score: " + score, 10, 10);
 }
 
 //finish interaction stuff
@@ -81,9 +81,9 @@ function GameLoop() {
       play();
       break;
   }
+
+
   FRAMECOUNT++;
-
-
 
   CLICKED = false;
   window.requestAnimationFrame(GameLoop);
