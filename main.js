@@ -3,8 +3,8 @@ const c = canvas.getContext("2d");
 
 //view port
 const vp = {
-  w: 800,
-  h: 800,
+  w: 600,
+  h: 600,
   size: 50,
 };
 canvas.width = vp.w;
@@ -14,6 +14,7 @@ canvas.height = vp.h;
 let mouseX = 0;
 let mouseY = 0;
 let CLICKED = false;
+let keys = {};
 
 //utilites
 let FRAMECOUNT = 0;
@@ -38,20 +39,40 @@ for (let i = 0; i < enemycount; i++) {
 
 //scenes
 function strt() {
-  c.clearRect(0, 0, vp.w, vp.h);
+ 
   c.fillStyle = "red";
-  c.fillRect(0, 0, vp.w, vp.h);
-
   c.drawText("BLOXD", vp.w / 2, vp.h / 2);
+
+
 }
 function play() {
-  c.clearRect(0, 0, vp.w, vp.h);
+  c.fillStyle = "red";
   c.drawText("Score: " + score, 10, 10);
 }
 
+//finish interaction stuff
+window.addEventListener("keydown", (e) => {
+  keys[e.key] = true;
+});
+window.addEventListener("keyup", (e) => {
+  delete keys[e.key];
+});
+canvas.addEventListener("mousemove", function (event) {
+  const rect = canvas.getBoundingClientRect();
+  mouseX = event.clientX - rect.left;
+  mouseY = event.clientY - rect.top;
+  //console.log("Mouse X:", mouseX, "Mouse Y:", mouseY);
+});
+canvas.addEventListener("click", function (event) {
+  CLICKED = true;
+});
+
 function GameLoop() {
   c.clearRect(0, 0, vp.w, vp.h);
+  c.fillStyle = "rgba(0,0,0,100)";
+  c.fillRect(0, 0, canvas.width, canvas.height);
 
+  //game logic
   switch (SCENE) {
     case "strt":
       strt();
@@ -62,8 +83,10 @@ function GameLoop() {
   }
   FRAMECOUNT++;
 
-  //if (FRAMECOUNT % 200 === 0) save();
+
 
   CLICKED = false;
   window.requestAnimationFrame(GameLoop);
 }
+
+GameLoop();
