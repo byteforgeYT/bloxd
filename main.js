@@ -3,9 +3,9 @@ const c = canvas.getContext("2d");
 
 //view port
 const vp = {
-    w:800,
-    h:800,
-    size:50
+  w: 800,
+  h: 800,
+  size: 50,
 };
 canvas.width = vp.w;
 canvas.height = vp.h;
@@ -36,42 +36,34 @@ for (let i = 0; i < enemycount; i++) {
   });
 }
 
-
-
-
 //scenes
-function strt(){
-    c.clearRect(0,0,vp.w,vp.h);
-    c.fillStyle = "red";
-    c.fillRect(0,0,vp.w,vp.h);
+function strt() {
+  c.clearRect(0, 0, vp.w, vp.h);
+  c.fillStyle = "red";
+  c.fillRect(0, 0, vp.w, vp.h);
 
-    c.drawText("BLOXD", vp.w / 2, vp.h / 2);
+  c.drawText("BLOXD", vp.w / 2, vp.h / 2);
 }
-function play(){
-
-    c.clearRect(0,0,vp.w,vp.h);
-    c.drawText("Score: " + score, 10, 10);
+function play() {
+  c.clearRect(0, 0, vp.w, vp.h);
+  c.drawText("Score: " + score, 10, 10);
 }
 
-function GameLoop(){
+function GameLoop() {
+  c.clearRect(0, 0, vp.w, vp.h);
 
-    c.clearRect(0,0,vp.w,vp.h);
+  switch (SCENE) {
+    case "strt":
+      strt();
+      break;
+    case "play":
+      play();
+      break;
+  }
+  FRAMECOUNT++;
 
-    switch(SCENE){
+  //if (FRAMECOUNT % 200 === 0) save();
 
-        case "strt":
-            strt();
-            break;
-        case "play":
-            play();
-            break;
-
-    }
-    FRAMECOUNT++;
-
-    //if (FRAMECOUNT % 200 === 0) save();
-
-    CLICKED = false;
-    window.requestAnimationFrame(GameLoop);
-
+  CLICKED = false;
+  window.requestAnimationFrame(GameLoop);
 }
